@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<form action="/recipes" method="POST">
+	<label>Recipe name:
+		<input type="text" name="name">
+	</label>
+	<label>Ingredients:
+		<input type="text" name="ingredients">
+	</label>
+	<label>Directions:
+		<input type="text" name="directions">
+	</label>
+	<input type="submit">
+</form>
+
+<%- include('partials/footer') %>

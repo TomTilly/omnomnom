@@ -1,17 +1,19 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const port = 7777;
 require('dotenv').config({ path: 'variables.env' });
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
 	res.render('home');
 });
 
-app.get('/recipes', function(req, res){
-	let recipes = [
+// Put in database eventually
+let recipes = [
 		{
 			name: 'White Bread',
 			ingredients: [
@@ -25,7 +27,25 @@ app.get('/recipes', function(req, res){
 		}
 	];
 
+app.get('/recipes', function(req, res){	
 	res.render('recipes', {recipes: recipes});
+});
+
+app.get('/recipes/new', function(req, res){
+	res.render('new');
+});
+
+app.post('/recipes', function(req, res){
+	const name = req.body.name;
+	const ingredients = [req.body.ingredients];
+	const directions = req.body.directions;
+	const newRecipe = {name: name, ingredients: ingredients, directions: directions};
+	recipes.push(newRecipe);
+	res.redirect('/recipes');
+});
+
+app.get('*', function(req, res){
+	res.send('404 - Page Not Found');
 });
 
 app.listen(port, function(){
