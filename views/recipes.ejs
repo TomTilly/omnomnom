@@ -1,0 +1,19 @@
+<%- include('partials/header'); %>
+
+<h1>Hello from recipes.ejs!</h1>
+
+<% recipes.forEach(function(recipe){ %>
+
+<h2><%= recipe.name %></h2>
+<ul>
+	<% recipe.ingredients.forEach(function(ingredient){ %>
+		<li>
+			<%= ingredient %>
+		</li>
+	<% }); %>
+</ul>
+<h3>Directions</h3>
+<p><%= recipe.directions %></p>
+<% }); %>
+
+<%- include('partials/footer'); %>
