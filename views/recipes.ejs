@@ -1,19 +1,29 @@
 <%- include('partials/header'); %>
 
-<h1>Hello from recipes.ejs!</h1>
-
-<% recipes.forEach(function(recipe){ %>
-
-<h2><%= recipe.name %></h2>
-<ul>
-	<% recipe.ingredients.forEach(function(ingredient){ %>
-		<li>
-			<%= ingredient %>
-		</li>
-	<% }); %>
-</ul>
-<h3>Directions</h3>
-<p><%= recipe.directions %></p>
-<% }); %>
+<div class="container">
+	<header class="jumbotron">
+	  <h1 class="display-4">Welcome to Om Nom Nom!</h1>
+	  <p class="lead">Find and share delicious recipes</p>
+	  <a class="btn btn-primary btn-lg" href="#" role="button">Submit New Recipe</a>
+	</header>
+	<main>
+		<div class="row">
+			<% recipes.forEach(function(recipe){ %>
+				<div class="col-md-6 col-lg-4">
+					<div class="card">
+						<img src="<%= recipe.image %>" alt="<%= recipe.name %>">
+						<div class="card-body">
+							<h4 class="card-title"><%= recipe.name %></h4>
+							<p class="card-text"><%= recipe.directions.substring(0, 100) %>&#8230;</p>
+							<a href="#" class="btn btn-primary">Full recipe</a>
+						</div>
+					</div>
+				</div>
+			<% }); %>
+		</div>
+	</div>	
+	</main>
+	
+</div>
 
 <%- include('partials/footer'); %>
