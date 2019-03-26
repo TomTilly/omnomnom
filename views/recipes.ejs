@@ -7,18 +7,18 @@
 	  <a class="btn btn-primary btn-lg" href="#" role="button">Submit New Recipe</a>
 	</header>
 	<main>
-		<div class="row">
+		<div class="row align-content-around">
 			<% recipes.forEach(function(recipe){ %>
-				<div class="col-md-6 col-lg-4">
+				<article class="col-md-6 col-lg-4 d-flex align-items-stretch"> <!-- d-flex align-items-stretch -->
 					<div class="card">
 						<img src="<%= recipe.image %>" alt="<%= recipe.name %>">
-						<div class="card-body">
+						<section class="card-body">
 							<h4 class="card-title"><%= recipe.name %></h4>
 							<p class="card-text"><%= recipe.directions.substring(0, 100) %>&#8230;</p>
 							<a href="#" class="btn btn-primary">Full recipe</a>
-						</div>
+						</section>
 					</div>
-				</div>
+				</article>
 			<% }); %>
 		</div>
 	</div>	
