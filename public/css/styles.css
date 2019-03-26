@@ -1,3 +1,27 @@
+/* Header
+   ========================================================================== */
+
+.navbar {
+	background-color: #F0AB8D;
+}
+
+.navbar-brand img {
+	width: 70px;
+	height: 70px;
+}
+
+.navbar-brand {
+	font-size: 1.4em;
+	display: flex;
+	align-items: center;
+}
+
+.navbar-brand span {
+	margin-left: .5em;
+}
+
+/* Main body of document
+   ========================================================================== */
 
 .card img {
 	height: 200px;
