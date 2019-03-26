@@ -1,14 +1,13 @@
-#About
+# About
 
 Basic recipe website
 
-##Issues
+## Issues
 
 - Stretched images on recipes page on XS tier
 - Cards are different sizes on recipes page
 
-##Media Query Reference
-
+## Media Query Reference
 
 Extra small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap
