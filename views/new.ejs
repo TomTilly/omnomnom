@@ -1,16 +1,20 @@
-<%- include('partials/header') %>
+<%- include('partials/header'); %>
 
-<form action="/recipes" method="POST">
-	<label>Recipe name:
-		<input type="text" name="name">
-	</label>
-	<label>Ingredients:
-		<input type="text" name="ingredients">
-	</label>
-	<label>Directions:
-		<input type="text" name="directions">
-	</label>
-	<input type="submit">
+<form action="/recipes" method="POST" id="add-recipe-form">
+	<div class="form-group">
+		<label for="name">Recipe name:</label>
+			<input type="text" name="name" class="form-control" id="name">
+	</div>
+	<div class="form-group">
+		<label for="ingredients">Ingredients:</label>
+			<textarea name="ingredients" class="form-control" id="ingredients" aria-describedby="ingredientsHelp" rows="5"></textarea>
+			<small id="ingredientsHelp" class="form-text text-muted">Place each ingredient on a new line.</small>
+	</div>
+	<div class="form-group">
+		<label for="directions">Directions:</label>
+			<input type="text" name="directions" class="form-control" id="directions">
+	</div>
+	<input type="submit" class="btn btn-lg">
 </form>
 
-<%- include('partials/footer') %>
+<%- include('partials/footer'); %>
