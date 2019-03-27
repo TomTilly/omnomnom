@@ -4,6 +4,7 @@
 
 .navbar {
 	background-color: #F0AB8D;
+	margin-bottom: 1.5rem;
 }
 
 .navbar-brand img {
@@ -49,11 +50,9 @@
 
 /* Add Recipes Page
    ========================================================================== */
-
-#add-recipe-form [type="submit"] {
-	background-color: #F0AB8D;
-}
-
-#add-recipe-form [type="submit"]:hover {
-	background-color: #C05E57;
+@media (min-width: 992px) {
+	.add-recipe-form {
+		margin: 0 auto;
+		width: 70%;
+	}
 }

@@ -1,20 +1,26 @@
 <%- include('partials/header'); %>
 
-<form action="/recipes" method="POST" id="add-recipe-form">
-	<div class="form-group">
-		<label for="name">Recipe name:</label>
-			<input type="text" name="name" class="form-control" id="name">
-	</div>
-	<div class="form-group">
-		<label for="ingredients">Ingredients:</label>
-			<textarea name="ingredients" class="form-control" id="ingredients" aria-describedby="ingredientsHelp" rows="5"></textarea>
-			<small id="ingredientsHelp" class="form-text text-muted">Place each ingredient on a new line.</small>
-	</div>
-	<div class="form-group">
-		<label for="directions">Directions:</label>
-			<input type="text" name="directions" class="form-control" id="directions">
-	</div>
-	<input type="submit" class="btn btn-lg">
-</form>
+	<form action="/recipes" method="POST" class="add-recipe-form">
+		<h1>Submit a New Recipe</h1>
+		<div class="form-group">
+			<label for="name">Recipe name:</label>
+				<input type="text" name="name" class="form-control" id="name">
+		</div>
+		<div class="form-group">
+			<label for="ingredients">Ingredients:</label>
+				<textarea name="ingredients" class="form-control" id="ingredients" aria-describedby="ingredientsHelp" rows="5"></textarea>
+				<small id="ingredientsHelp" class="form-text text-muted">Place each ingredient on a new line. For example:<br>
+				1 cup water<br>
+				1/2 onion, chopped<br>
+				etc...</small>
+		</div>
+		<div class="form-group">
+			<label for="directions">Directions:</label>
+				<textarea type="text" name="directions" class="form-control" id="directions" rows="5"></textarea>
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary btn-lg btn-block">
+		<div class="form-group">
+	</form>
 
 <%- include('partials/footer'); %>
