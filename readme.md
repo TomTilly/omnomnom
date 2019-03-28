@@ -6,6 +6,7 @@ Basic recipe website
 
 - Stretched images on recipes page on XS tier
 - Cards are different sizes on recipes page
+- Full sized images on recipes page creates slow load
 
 ## Media Query Reference
 
