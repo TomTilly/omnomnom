@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const fileUpload = require('express-fileupload');
 const port = 7777;
 require('dotenv').config({ path: 'variables.env' });
 
@@ -91,7 +90,7 @@ app.get('/recipes/new', function(req, res){
 
 
 app.get('/recipes/:id', function(req, res){
-	res.send('test');
+	res.render('show');
 });
 
 app.get('*', function(req, res){
