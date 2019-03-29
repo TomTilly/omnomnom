@@ -14,7 +14,7 @@
 						<section class="card-body">
 							<h4 class="card-title"><%= recipe.name %></h4>
 							<p class="card-text"><%= recipe.directions.substring(0, 100) %>&#8230;</p>
-							<a href="#" class="btn btn-primary">Full recipe</a>
+							<a href="/recipes/<%= recipe._id %>" class="btn btn-primary">Full recipe</a>
 						</section>
 					</div>
 				</article>

@@ -1,5 +1,9 @@
 <%- include('partials/header'); %>
 
-<h2>Show</h2>
+<h2><%= recipe.name %></h2>
+
+<img src="<%= recipe.image %>" width="300">
+
+<p><%= recipe.directions %></p>
 
 <%- include('partials/footer'); %>

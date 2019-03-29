@@ -7,7 +7,6 @@ require('dotenv').config({ path: 'variables.env' });
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-app.use(fileUpload());
 app.set('view engine', 'ejs');
 
 
@@ -54,7 +53,7 @@ const Recipe = mongoose.model('Recipe', recipeSchema);
 
 
 app.get('/', function(req, res){
-	res.render('home');
+	res.redirect('/recipes');
 });
 
 app.get('/recipes', function(req, res){	
@@ -62,7 +61,7 @@ app.get('/recipes', function(req, res){
 		if(err){
 			console.log(err);
 		} else {
-			res.render('recipes', {recipes: recipes});
+			res.render('index', {recipes: recipes});
 		}
 	});
 });
@@ -79,7 +78,7 @@ app.post('/recipes', function(req, res){
 			console.log(err);
 		} else {
 			console.log(req.body);
-			res.redirect('/recipes');		
+			res.redirect('/index');		
 		}
 	});
 });
@@ -90,7 +89,13 @@ app.get('/recipes/new', function(req, res){
 
 
 app.get('/recipes/:id', function(req, res){
-	res.render('show');
+	Recipe.findById(req.params.id, function(err, foundRecipe){
+		if(err){
+			console.log(err);
+		} else {
+			res.render('show', {recipe: foundRecipe});
+		}
+	});
 });
 
 app.get('*', function(req, res){
