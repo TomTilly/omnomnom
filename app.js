@@ -2,17 +2,20 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const port = 7777;
 require('dotenv').config({ path: 'variables.env' });
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+app.use(fileUpload());
 app.set('view engine', 'ejs');
 
 
 // Database setup
 
 mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
+
 
 // Schema
 
@@ -65,15 +68,13 @@ app.get('/recipes', function(req, res){
 	});
 });
 
-app.get('/recipes/new', function(req, res){
-	res.render('new');
-});
-
 app.post('/recipes', function(req, res){
 	const name = req.body.name;
-	const ingredients = req.body.ingredients.split('\n');
+	const ingredients = req.body.ingredients.split(/\r?\n/g);
 	const directions = req.body.directions;
-	const newRecipe = {name: name, ingredients: ingredients, directions: directions};
+	const image = req.body.image;
+	const newRecipe = {name: name, ingredients: ingredients, directions: directions, image: image};
+
 	Recipe.create(newRecipe, function(err, recipe){
 		if(err){
 			console.log(err);
@@ -82,6 +83,15 @@ app.post('/recipes', function(req, res){
 			res.redirect('/recipes');		
 		}
 	});
+});
+
+app.get('/recipes/new', function(req, res){
+	res.render('new');
+});
+
+
+app.get('/recipes/:id', function(req, res){
+	res.send('test');
 });
 
 app.get('*', function(req, res){

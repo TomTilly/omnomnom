@@ -7,6 +7,7 @@ Basic recipe website
 - Stretched images on recipes page on XS tier
 - Cards are different sizes on recipes page
 - Full sized images on recipes page creates slow load
+- File uploads not working, body-parser doesn't handle multipart/form-data encoding needed for file upload. Changed to image url temporarily
 
 ## Media Query Reference
 
