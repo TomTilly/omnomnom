@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Recipe = require('./models/recipe');
 const port = 7777;
 require('dotenv').config({ path: 'variables.env' });
 
+
+// Middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -14,17 +17,6 @@ app.set('view engine', 'ejs');
 
 mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
 
-
-// Schema
-
-const recipeSchema = new mongoose.Schema({
-	name: String,
-	ingredients: Array,
-	directions: String,
-	image: String
-});
-
-const Recipe = mongoose.model('Recipe', recipeSchema);
 
 // Recipe.create(
 // 	{
