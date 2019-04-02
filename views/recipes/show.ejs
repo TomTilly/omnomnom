@@ -1,20 +1,31 @@
 <%- include('../partials/header'); %>
 
-<h2><%= recipe.name %></h2>
+<div class="row">
+	<main class="col-9">
 
-<img src="<%= recipe.image %>" width="300">
+		<h1><%= recipe.name %></h1>
 
-<p><%= recipe.directions %></p>
+		<img src="<%= recipe.image %>" width="300">
 
-<hr>
+		<p><%= recipe.directions %></p>
 
-<% recipe.comments.forEach(function(comment){ %>
-<ul>
-	<li><%= comment.text %> - By <%= comment.author %></li>
-</ul>
+		<hr>
 
-<% }); %>
+		<% recipe.comments.forEach(function(comment){ %>
+		<ul>
+			<li><%= comment.text %> - By <%= comment.author %></li>
+		</ul>
 
-<a href="/recipes/<%= recipe._id %>/comments/new" class="btn btn-success">Add New Comment</a>
+		<% }); %>
+
+		<a href="/recipes/<%= recipe._id %>/comments/new" class="btn btn-success">Add New Comment</a>
+	</main>
+	<aside class="col-3">
+		<h3>More Recipes</h3>
+		<% otherRecipes.forEach(function(recipe){ %>
+		<%= recipe.name %>
+		<% }); %>
+	</aside>
+</div>
 
 <%- include('../partials/footer'); %>

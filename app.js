@@ -63,11 +63,19 @@ app.get('/recipes/new', function(req, res){
 
 // Show
 app.get('/recipes/:id', function(req, res){
-	Recipe.findById(req.params.id).populate('comments').exec(function(err, foundRecipe){
+	Recipe.findById(req.params.id).populate('comments').exec(function(err, mainRecipe){
 		if(err){
 			console.log(err);
 		} else {
-			res.render('recipes/show', {recipe: foundRecipe});
+			// Find other recipes to display on sidebar of page, making sure ID is not equal to the recipe just found
+			Recipe.find({ _id: { $ne: mainRecipe._id }}).limit(2).exec(function(err, otherRecipes){
+				if(err){
+					console.log(err);
+				} else {
+					console.log(otherRecipes);
+					res.render('recipes/show', {recipe: mainRecipe, otherRecipes: otherRecipes});
+				}
+			});
 		}
 	});
 });
