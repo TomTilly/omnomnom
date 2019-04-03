@@ -1,7 +1,7 @@
 <%- include('../partials/header'); %>
 
 <div class="row">
-	<main class="col-9">
+	<main class="col-lg-9">
 
 		<h1><%= recipe.name %></h1>
 
@@ -20,10 +20,16 @@
 
 		<a href="/recipes/<%= recipe._id %>/comments/new" class="btn btn-success">Add New Comment</a>
 	</main>
-	<aside class="col-3">
-		<h3>More Recipes</h3>
+	<aside class="col-lg-3">
+    <h3 class="text-center">More Recipes</h3>
 		<% otherRecipes.forEach(function(recipe){ %>
-		<%= recipe.name %>
+				<div class="card text-center my-3">
+	  			<div class="card-header">
+						<a href="/recipes/<%= recipe._id %>" class="stretched-link"><%= recipe.name %></a>
+	  			</div>
+	  			<img src="<%= recipe.image %>" class="card-img">
+	  		</div>
+	  	</a>
 		<% }); %>
 	</aside>
 </div>
