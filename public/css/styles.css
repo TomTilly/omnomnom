@@ -34,7 +34,7 @@
 /* Recipes page
    ========================================================================== */
 
-.card img {
+.index-card img {
 	height: 200px;
 }
 
@@ -62,11 +62,6 @@
 /* Recipe Show Page
    ========================================================================== */
 
-@media (min-width: 992px) {
-	.card-img {
-		max-height: 150px;
-	}	
-}
 
 /* Sidebar
    ========================================================================== */
@@ -77,4 +72,10 @@ aside .card a {
 
 aside .card a:hover {
 	color: #666;
+}
+
+@media (min-width: 992px) {
+	aside .card a {
+		font-size: 1em;
+	}
 }

@@ -9,12 +9,12 @@
 		<div class="row align-content-around">
 			<% recipes.forEach(function(recipe){ %>
 				<article class="col-md-6 col-lg-4 d-flex align-items-stretch card-container"> <!-- d-flex align-items-stretch -->
-					<div class="card">
+					<div class="card index-card">
 						<img src="<%= recipe.image %>" alt="<%= recipe.name %>">
 						<section class="card-body">
 							<h4 class="card-title"><%= recipe.name %></h4>
 							<p class="card-text"><%= recipe.directions.substring(0, 100) %>&#8230;</p>
-							<a href="/recipes/<%= recipe._id %>" class="btn btn-primary">Full recipe</a>
+							<a href="/recipes/<%= recipe._id %>" class="btn btn-primary stretched-link">Full recipe</a>
 						</section>
 					</div>
 				</article>

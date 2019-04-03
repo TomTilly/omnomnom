@@ -21,13 +21,13 @@
 		<a href="/recipes/<%= recipe._id %>/comments/new" class="btn btn-success">Add New Comment</a>
 	</main>
 	<aside class="col-lg-3">
-    <h3 class="text-center">More Recipes</h3>
+    <h2 class="text-center">More Recipes</h3>
 		<% otherRecipes.forEach(function(recipe){ %>
-				<div class="card text-center my-3">
+				<div class="card text-center my-3 show-card">
 	  			<div class="card-header">
-						<a href="/recipes/<%= recipe._id %>" class="stretched-link"><%= recipe.name %></a>
+						<a href="/recipes/<%= recipe._id %>" class="stretched-link h4"><%= recipe.name %></a>
 	  			</div>
-	  			<img src="<%= recipe.image %>" class="card-img">
+	  			<img src="<%= recipe.image %>" class="card-img" alt="<%= recipe.name %>">
 	  		</div>
 	  	</a>
 		<% }); %>
