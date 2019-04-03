@@ -62,9 +62,29 @@
 /* Recipe Show Page
    ========================================================================== */
 
+.timer-icon {
+	width: 25px;
+	height: 25px;
+}
+
+.printer-btn img {
+	width: 25px;
+	height: 25px;
+}
+
+.comments {
+	background: #F8FCFC;
+	border-top: 1px solid rgba(0,0,0,.125);
+}
 
 /* Sidebar
    ========================================================================== */
+
+aside {
+	margin-top: 1rem;
+}
+
+
 
 aside .card a {
 	color: #999;
@@ -75,7 +95,16 @@ aside .card a:hover {
 }
 
 @media (min-width: 992px) {
+	aside {
+		margin-top: 0;
+	}
+
 	aside .card a {
 		font-size: 1em;
 	}
+	
+	aside h2 {
+		font-size: 1.5rem;
+	}
+
 }
