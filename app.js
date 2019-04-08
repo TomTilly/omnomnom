@@ -31,6 +31,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Add middleware to make currentUser available to every route
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
+
 
 /* Routes */
 
@@ -104,7 +110,7 @@ app.get('/recipes/:id/comments/new', isLoggedIn, function(req, res){
 });
 
 // Create - Comments
-app.post('/recipes/:id/comments', function(req, res){
+app.post('/recipes/:id/comments', isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, recipe){
 		if(err){
 			console.log(err);
