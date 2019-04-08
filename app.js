@@ -97,7 +97,7 @@ app.get('/recipes/:id', function(req, res){
 // ============
 
 // New - Comments
-app.get('/recipes/:id/comments/new', function(req, res){
+app.get('/recipes/:id/comments/new', isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, foundRecipe){
 		res.render('comments/new', {recipe: foundRecipe});
 	});
@@ -159,6 +159,13 @@ app.get('/logout', function(req, res){
 	req.logout();
 	res.redirect('/recipes');
 });
+
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect('/login');
+}
 
 // 404
 app.get('*', function(req, res){
