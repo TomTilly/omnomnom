@@ -19,7 +19,7 @@ const data = [
 		name: 'Rice Pilao',
 		ingredients: [ 
 			"1 cup uncooked Basmati rice",
-			"1&frac13;-1&frac34; cups water",
+			"1 1&frac34; cups water",
 			"1 tsp salt",
 			"Small knob of butter",
 			"2 cardamom pods, cracked",
@@ -38,7 +38,7 @@ const data = [
 		ingredients: [
 			"2 cups cooked rice",
 			"1 garlic clove, chopped",
-			"&frac12 small onion",
+			"&frac12; small onion",
 			"1-2 eggs, wisked",
 			"&frac12; cup carrots,finely chopped",
 			"1/4 cup peas",

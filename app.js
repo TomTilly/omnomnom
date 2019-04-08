@@ -2,22 +2,34 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 const Recipe = require('./models/recipe');
 const Comment = require('./models/comment');
+const User = require('./models/user');
 const seedDB = require('./seed');
 require('dotenv').config({ path: 'variables.env' });
 const port = 7777;
 
-
-// Middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 seedDB();
 
-// Database setup
-
 mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
+
+// Passport Config
+
+app.use(require('express-session')({
+	secret: 'Plaid shirts from outer space',
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 /* Routes */
@@ -109,6 +121,27 @@ app.post('/recipes/:id/comments', function(req, res){
 		}
 	});
 	
+});
+
+// ============
+// Auth Routes
+// ============
+
+app.get('/register', function(req, res){
+	res.render('register');
+});
+
+app.post('/register', function(req, res){
+	const newUser = new User({username: req.body.username})
+	User.register(newUser, req.body.password, function(err, user){
+		if(err){
+			console.log(err);
+			return res.render('register');
+		}
+		passport.authenticate('local')(req, res, function(){
+			res.redirect('/recipes');
+		});
+	});
 });
 
 // 404
