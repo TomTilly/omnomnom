@@ -153,7 +153,11 @@ app.post('/login', passport.authenticate('local',
 		successRedirect: '/recipes',
 		failureRedirect: '/login'
 	}), function(req, res){
+});
 
+app.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/recipes');
 });
 
 // 404
