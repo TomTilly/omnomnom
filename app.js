@@ -144,6 +144,18 @@ app.post('/register', function(req, res){
 	});
 });
 
+app.get('/login', function(req, res){
+	res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', 
+	{
+		successRedirect: '/recipes',
+		failureRedirect: '/login'
+	}), function(req, res){
+
+});
+
 // 404
 app.get('*', function(req, res){
 	res.send('404 - Page Not Found');
