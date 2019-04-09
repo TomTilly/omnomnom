@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const methodOverride = require('method-override');
 const Recipe = require('./models/recipe');
 const Comment = require('./models/comment');
 const User = require('./models/user');
@@ -19,6 +20,7 @@ const commentRoutes = require('./routes/comments');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 // seedDB();
 
 mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
@@ -41,11 +43,12 @@ app.use(function(req, res, next){
 	next();
 });
 
+// Routes 
+
 app.use('/recipes', recipeRoutes);
 app.use('/recipes/:id/comments', commentRoutes);
 app.use('/', indexRoutes);
 
-/* Routes */
 
 app.listen(port, function(){
 	console.log("Server started: ", new Date());
