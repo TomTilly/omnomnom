@@ -19,12 +19,11 @@ const commentRoutes = require('./routes/comments');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
-seedDB();
+// seedDB();
 
 mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
 
 // Passport Config
-
 app.use(require('express-session')({
 	secret: 'Plaid shirts from outer space',
 	resave: false,

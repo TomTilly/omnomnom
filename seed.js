@@ -54,34 +54,34 @@ const data = [
 
 function seedDB(){
 	Recipe.deleteMany({}, function(err){
-		if(err){
-			console.log(err);
-		} else {
-			console.log('removed recipes from DB');
-			data.forEach(function(seed){
-				Recipe.create(seed, function(err, recipe){
-					if(err){
-						console.log(err);
-					} else {
-						console.log('added a recipe');
-						Comment.create(
-							{
-								text: 'Very tasty!',
-								author: 'Harry'
-							}, function(err, comment){
-								if(err){
-									console.log(err);
-								} else {
-									recipe.comments.push(comment);
-									recipe.save();
-									console.log('created new comment');
-								}
-							}
-						);
-					}
-				});
-			});
-		}
+		// if(err){
+		// 	console.log(err);
+		// } else {
+		// 	console.log('removed recipes from DB');
+		// 	data.forEach(function(seed){
+		// 		Recipe.create(seed, function(err, recipe){
+		// 			if(err){
+		// 				console.log(err);
+		// 			} else {
+		// 				console.log('added a recipe');
+		// 				Comment.create(
+		// 					{
+		// 						text: 'Very tasty!',
+		// 						author: 'Harry'
+		// 					}, function(err, comment){
+		// 						if(err){
+		// 							console.log(err);
+		// 						} else {
+		// 							recipe.comments.push(comment);
+		// 							recipe.save();
+		// 							console.log('created new comment');
+		// 						}
+		// 					}
+		// 				);
+		// 			}
+		// 		});
+		// 	});
+		// }
 	});
 }
 
