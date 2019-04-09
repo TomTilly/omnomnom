@@ -15,25 +15,28 @@ router.get('/', function(req, res){
 });
 
 // Create
-router.post('/', function(req, res){
+router.post('/', isLoggedIn, function(req, res){
 	const name = req.body.name;
 	const ingredients = req.body.ingredients.split(/\r?\n/g);
 	const directions = req.body.directions;
 	const image = req.body.image;
-	const newRecipe = {name: name, ingredients: ingredients, directions: directions, image: image};
+	const author = {
+		id: req.user._id,
+		username: req.user.username
+	}
+	const newRecipe = {name: name, ingredients: ingredients, directions: directions, image: image, author: author};
 
 	Recipe.create(newRecipe, function(err, recipe){
 		if(err){
 			console.log(err);
 		} else {
-			console.log(req.body);
 			res.redirect('/recipes');		
 		}
 	});
 });
 
 // New
-router.get('/new', function(req, res){
+router.get('/new', isLoggedIn, function(req, res){
 	res.render('recipes/new');
 });
 
@@ -48,12 +51,19 @@ router.get('/:id', function(req, res){
 				if(err){
 					console.log(err);
 				} else {
-					console.log(otherRecipes);
 					res.render('recipes/show', {recipe: mainRecipe, otherRecipes: otherRecipes});
 				}
 			});
 		}
 	});
 });
+
+// middleware
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect('/login');
+}
 
 module.exports = router;
