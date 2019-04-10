@@ -60,11 +60,25 @@ router.get('/:id', function(req, res){
 
 // Edit
 router.get('/:id/edit', function(req, res){
-	Recipe.findById(req.params.id, function(err, recipe){
+	Recipe.findById(req.params.id, function(err, foundRecipe){
 		if(err){
 			console.log(err);
+			res.redirect('/recipes');
 		} else {
-			res.render('recipes/edit', {recipe: recipe});
+			res.render('recipes/edit', {recipe: foundRecipe});
+		}
+	});
+});
+
+// Update
+router.put('/:id', function(req, res){
+	req.body.recipe.ingredients = req.body.recipe.ingredients.split(/\r?\n/g);
+	Recipe.findByIdAndUpdate(req.params.id, req.body.recipe, function(err, updatedRecipe){
+		if(err){
+			console.log(err);
+			res.redirect('/recipes');
+		} else {
+			res.redirect(`/recipes/${req.params.id}`);
 		}
 	});
 });
