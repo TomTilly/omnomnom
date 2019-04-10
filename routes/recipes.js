@@ -60,7 +60,13 @@ router.get('/:id', function(req, res){
 
 // Edit
 router.get('/:id/edit', function(req, res){
-	res.render('recipes/edit');
+	Recipe.findById(req.params.id, function(err, recipe){
+		if(err){
+			console.log(err);
+		} else {
+			res.render('recipes/edit', {recipe: recipe});
+		}
+	});
 });
 
 // middleware
