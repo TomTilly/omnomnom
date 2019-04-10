@@ -58,6 +58,11 @@ router.get('/:id', function(req, res){
 	});
 });
 
+// Edit
+router.get('/:id/edit', function(req, res){
+	res.render('recipes/edit');
+});
+
 // middleware
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
