@@ -51,7 +51,8 @@ router.get('/:id', function(req, res){
 				if(err){
 					console.log(err);
 				} else {
-					res.render('recipes/show', {recipe: mainRecipe, otherRecipes: otherRecipes});
+					const isAuthor = 'user' in req && req.user.username === mainRecipe.author.username;
+					res.render('recipes/show', { recipe: mainRecipe, otherRecipes: otherRecipes, isAuthor: isAuthor });
 				}
 			});
 		}
