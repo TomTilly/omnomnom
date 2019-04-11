@@ -3,14 +3,14 @@ const router = express.Router({mergeParams: true});
 const Recipe = require('../models/recipe');
 const Comment = require('../models/comment');
 
-// Comments New
+// New
 router.get('/new', isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, foundRecipe){
 		res.render('comments/new', {recipe: foundRecipe});
 	});
 });
 
-// Comments Create
+// Create
 router.post('/', isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, recipe){
 		if(err){
@@ -30,6 +30,11 @@ router.post('/', isLoggedIn, function(req, res){
 			});
 		}
 	});
+});
+
+// Edit
+router.get('/:comments_id/edit', function(req, res){
+	res.send('Edit comments');
 });
 
 // middleware
