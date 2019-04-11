@@ -33,8 +33,14 @@ router.post('/', isLoggedIn, function(req, res){
 });
 
 // Edit
-router.get('/:comments_id/edit', function(req, res){
-	res.send('Edit comments');
+router.get('/:commentsID/edit', function(req, res){
+	Comment.findById(req.params.commentsID, function(err, foundComment){
+		if(err){
+			res.redirect('back');
+		} else {
+			res.render('comments/edit', { comment: foundComment, recipeID: req.params.id })
+		}
+	})
 });
 
 // middleware

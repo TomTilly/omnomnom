@@ -1,0 +1,14 @@
+<%- include('../partials/header'); %>
+
+	<form action="/recipes/<%= recipeID %>/comments/<%= comment._id %>?_method=PUT" method="POST" class="tt-form bg-light border p-4">
+		<h1>Edit Comment</h1>
+		<div class="form-group">
+			<label for="text">Comment:</label>
+				<textarea name="comment[text]" class="form-control" id="text" rows="5"><%= comment.text %></textarea>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+		</div>
+	</form>
+
+<%- include('../partials/footer'); %>
