@@ -32,11 +32,14 @@
 					<h2 class="h4">Directions</h2>
 					<p><%= recipe.directions %></p>
 			</div>
-			<% if(isAuthor) { %>
+			<% if(currentUser && recipe.author.id.equals(currentUser._id)){ %>
 				<div class="p-3 bg-light">
 					<h4>Author Options</h4>
 					<p class="text-muted">This is your recipe. You may edit or delete it.</p>
 					<a class="btn btn-warning" href="/recipes/<%= recipe._id %>/edit">Edit</a>
+					<form action="/recipes/<%= recipe._id%>?_method=DELETE" method="POST" class="delete-form">
+						<button class="btn btn-danger">Delete</button>
+					</form>
 				</div>
 			<% } %>
 

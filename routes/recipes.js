@@ -51,8 +51,7 @@ router.get('/:id', function(req, res){
 				if(err){
 					console.log(err);
 				} else {
-					const isAuthor = 'user' in req && req.user.username === mainRecipe.author.username;
-					res.render('recipes/show', { recipe: mainRecipe, otherRecipes: otherRecipes, isAuthor: isAuthor });
+					res.render('recipes/show', { recipe: mainRecipe, otherRecipes: otherRecipes });
 				}
 			});
 		}
@@ -60,19 +59,14 @@ router.get('/:id', function(req, res){
 });
 
 // Edit
-router.get('/:id/edit', function(req, res){
+router.get('/:id/edit', checkRecipeOwnership, function(req, res){
 	Recipe.findById(req.params.id, function(err, foundRecipe){
-		if(err){
-			console.log(err);
-			res.redirect('/recipes');
-		} else {
-			res.render('recipes/edit', {recipe: foundRecipe});
-		}
+		res.render('recipes/edit', {recipe: foundRecipe});
 	});
 });
 
 // Update
-router.put('/:id', function(req, res){
+router.put('/:id', checkRecipeOwnership, function(req, res){
 	req.body.recipe.ingredients = req.body.recipe.ingredients.split(/\r?\n/g);
 	Recipe.findByIdAndUpdate(req.params.id, req.body.recipe, function(err, updatedRecipe){
 		if(err){
@@ -84,12 +78,47 @@ router.put('/:id', function(req, res){
 	});
 });
 
+// Delete
+router.delete('/:id', checkRecipeOwnership, function(req, res){
+	Recipe.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			console.log(err);
+			res.redirect('/recipes');
+		} else {
+			res.redirect('/recipes');
+		}
+	});
+});
+
 // middleware
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
 	}
 	res.redirect('/login');
+}
+
+function checkRecipeOwnership(req, res, next){
+	// If user is logged in
+	if(req.isAuthenticated()){
+		Recipe.findById(req.params.id, function(err, foundRecipe){
+			if(err){
+				console.log(err);
+				res.redirect('back');
+			} else {
+				// Does user own the recipe?
+				if(foundRecipe.author.id.equals(req.user._id)) {
+					next();
+				} else {
+					console.log('You need not have permission to do that');
+					res.redirect('back');
+				}
+			}
+		});
+	} else {
+		console.log('You need to be logged in to do that');
+		res.redirect('back');
+	}
 }
 
 module.exports = router;
