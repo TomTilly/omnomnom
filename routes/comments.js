@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Recipe = require('../models/recipe');
 const Comment = require('../models/comment');
+const middleware = require('../middleware');
 
 // New
-router.get('/new', isLoggedIn, function(req, res){
+router.get('/new', middleware.isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, foundRecipe){
 		res.render('comments/new', {recipe: foundRecipe});
 	});
 });
 
 // Create
-router.post('/', isLoggedIn, function(req, res){
+router.post('/', middleware.isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, recipe){
 		if(err){
 			console.log(err);
@@ -33,7 +34,7 @@ router.post('/', isLoggedIn, function(req, res){
 });
 
 // Edit
-router.get('/:commentID/edit', function(req, res){
+router.get('/:commentID/edit', middleware.checkCommentOwnership, function(req, res){
 	Comment.findById(req.params.commentID, function(err, foundComment){
 		if(err){
 			res.redirect('back');
@@ -44,7 +45,7 @@ router.get('/:commentID/edit', function(req, res){
 });
 
 // Update
-router.put('/:commentID', function(req, res){
+router.put('/:commentID', middleware.checkCommentOwnership, function(req, res){
 	Comment.findByIdAndUpdate(req.params.commentID, req.body.comment, function(err, updatedComment){
 		if(err){
 			res.redirect('back');
@@ -55,7 +56,7 @@ router.put('/:commentID', function(req, res){
 });
 
 // Delete
-router.delete('/:commentID', function(req, res){
+router.delete('/:commentID', middleware.checkCommentOwnership, function(req, res){
 	Comment.findByIdAndRemove(req.params.commentID, function(err){
 		if(err){
 			res.redirect('back');
@@ -64,13 +65,5 @@ router.delete('/:commentID', function(req, res){
 		}
 	});
 });
-
-// middleware
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect('/login');
-}
 
 module.exports = router;
