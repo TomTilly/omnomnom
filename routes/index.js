@@ -46,16 +46,9 @@ router.post('/login', passport.authenticate('local',
 
 router.get('/logout', function(req, res){
 	req.logout();
+	req.flash('success', 'Logged out');
 	res.redirect('/recipes');
 });
-
-// middleware
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect('/login');
-}
 
 // 404
 router.get('*', function(req, res){
