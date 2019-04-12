@@ -8,19 +8,22 @@ middlewareObj.checkRecipeOwnership = function(req, res, next){
 		Recipe.findById(req.params.id, function(err, foundRecipe){
 			if(err){
 				console.log(err);
+				req.flash('error', 'Recipe not found');
 				res.redirect('back');
 			} else {
 				// Does user own the recipe?
-				if(foundRecipe.author.id.equals(req.user._id)) {
+				if(foundRecipe.author.id.equals(req.user._id)){
 					next();
 				} else {
-					console.log('You need not have permission to do that');
+					console.log('You don\'t have permission to do that');
+					req.flash('error', 'You don\'t have permission to do that');
 					res.redirect('back');
 				}
 			}
 		});
 	} else {
 		console.log('You need to be logged in to do that');
+		req.flash('error', 'You need to be logged in to do that');
 		res.redirect('back');
 	}
 }
@@ -31,19 +34,22 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
 		Comment.findById(req.params.commentID, function(err, foundComment){
 			if(err){
 				console.log(err);
+				req.flash('error', 'Comment not found');
 				res.redirect('back');
 			} else {
 				// Did the user author this comment?
 				if(foundComment.author.id.equals(req.user._id)) {
 					next();
 				} else {
-					console.log('You need not have permission to do that');
+					console.log('You don\'t have permission to do that');
+					req.flash('error', 'You don\'t have permission to do that');
 					res.redirect('back');
 				}
 			}
 		});
 	} else {
 		console.log('You need to be logged in to do that');
+		req.flash('error', 'You need to be logged in to do that');
 		res.redirect('back');
 	}
 }

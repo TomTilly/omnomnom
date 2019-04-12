@@ -19,6 +19,7 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 		} else {
 			Comment.create(req.body.comment, function(err, comment){
 				if(err){
+					req.flash('error', 'Sorry, something went wrong!');
 					console.log(err);
 				} else {
 					comment.author.id = req.user._id;
@@ -26,6 +27,7 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 					comment.save();
 					recipe.comments.push(comment);
 					recipe.save();
+					req.flash('success', 'Successfully added comment');
 					res.redirect(`/recipes/${recipe._id}`);
 				}
 			});
@@ -50,6 +52,7 @@ router.put('/:commentID', middleware.checkCommentOwnership, function(req, res){
 		if(err){
 			res.redirect('back');
 		} else {
+			req.flash('success', 'Successfully updated comment');
 			res.redirect(`/recipes/${req.params.id}`);
 		}
 	});
@@ -61,6 +64,7 @@ router.delete('/:commentID', middleware.checkCommentOwnership, function(req, res
 		if(err){
 			res.redirect('back');
 		} else {
+			req.flash('success', 'Comment deleted');
 			res.redirect(`/recipes/${req.params.id}`);
 		}
 	});

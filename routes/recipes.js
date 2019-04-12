@@ -31,6 +31,7 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 		if(err){
 			console.log(err);
 		} else {
+			req.flash('success', 'Recipe successfully created');
 			res.redirect('/recipes');		
 		}
 	});
@@ -74,6 +75,7 @@ router.put('/:id', middleware.checkRecipeOwnership, function(req, res){
 			console.log(err);
 			res.redirect('/recipes');
 		} else {
+			req.flash('success', 'Successfully updated recipe');
 			res.redirect(`/recipes/${req.params.id}`);
 		}
 	});
@@ -86,6 +88,7 @@ router.delete('/:id', middleware.checkRecipeOwnership, function(req, res){
 			console.log(err);
 			res.redirect('/recipes');
 		} else {
+			req.flash('success', 'Recipe deleted');
 			res.redirect('/recipes');
 		}
 	});
