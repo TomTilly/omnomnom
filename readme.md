@@ -11,6 +11,7 @@ Basic recipe website
 - ~~Ingredients should go on seperate lines in the textarea on the edit form~~
 - Portrait images too narrow on show page
 - Flash messages not showing on `res.redirect('back')`
+- App throws error when a nonexistant id is given for :id and :commentID URL parameters for recipe and comment routes. Database doesn't return a document and app doesn't work as intended.
 
 ## Media Query Reference
 
