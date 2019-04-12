@@ -2,14 +2,15 @@
 
 Basic recipe website
 
-## Issues
+## Issues to fix
 
 - Stretched images on recipes page on XS tier
 - Cards are different sizes on recipes page
 - Full sized images on recipes page creates slow load
 - File uploads not working, body-parser doesn't handle multipart/form-data encoding needed for file upload. Changed to image url temporarily
-- Ingredients should go on seperate lines in the textarea on the edit form
+- ~~Ingredients should go on seperate lines in the textarea on the edit form~~
 - Portrait images too narrow on show page
+- Flash messages not showing on `res.redirect('back')`
 
 ## Media Query Reference
 
