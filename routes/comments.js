@@ -7,6 +7,10 @@ const middleware = require('../middleware');
 // New
 router.get('/new', middleware.isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, foundRecipe){
+		if(err || !foundRecipe){
+			req.flash('error', `Recipe not found`);
+			res.redirect('back');
+		}
 		res.render('comments/new', {recipe: foundRecipe});
 	});
 });
@@ -16,6 +20,8 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 	Recipe.findById(req.params.id, function(err, recipe){
 		if(err){
 			console.log(err);
+			req.flash('error', `Recipe not found`);
+			res.redirect('back');
 		} else {
 			Comment.create(req.body.comment, function(err, comment){
 				if(err){
@@ -37,35 +43,42 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 
 // Edit
 router.get('/:commentID/edit', middleware.checkCommentOwnership, function(req, res){
-	Comment.findById(req.params.commentID, function(err, foundComment){
-		if(err){
+	Recipe.findById(req.params.id, function(err, foundRecipe){
+		if(err || !foundRecipe){
+			req.flash('error', `Recipe not found`);
 			res.redirect('back');
 		} else {
-			res.render('comments/edit', { comment: foundComment, recipeID: req.params.id })
+			res.render('comments/edit', { comment: req.comment, recipeID: req.params.id })
 		}
-	})
+	});
 });
 
 // Update
 router.put('/:commentID', middleware.checkCommentOwnership, function(req, res){
-	Comment.findByIdAndUpdate(req.params.commentID, req.body.comment, function(err, updatedComment){
-		if(err){
+	Recipe.findById(req.params.id, function(err, foundRecipe){
+		if(err || !foundRecipe){
+			req.flash('error', `Recipe not found`);
 			res.redirect('back');
 		} else {
-			req.flash('success', 'Successfully updated comment');
-			res.redirect(`/recipes/${req.params.id}`);
+			Comment.findByIdAndUpdate(req.params.commentID, req.body.comment, function(err, updatedComment){
+				req.flash('success', 'Successfully updated comment');
+				res.redirect(`/recipes/${req.params.id}`);
+			});
 		}
 	});
 });
 
 // Delete
 router.delete('/:commentID', middleware.checkCommentOwnership, function(req, res){
-	Comment.findByIdAndRemove(req.params.commentID, function(err){
-		if(err){
+	Recipe.findById(req.params.id, function(err, foundRecipe){
+		if(err || !foundRecipe){
+			req.flash('error', `Recipe not found`);
 			res.redirect('back');
 		} else {
-			req.flash('success', 'Comment deleted');
-			res.redirect(`/recipes/${req.params.id}`);
+			Comment.findByIdAndRemove(req.params.commentID, function(err){
+				req.flash('success', 'Comment deleted');
+				res.redirect(`/recipes/${req.params.id}`);
+			});
 		}
 	});
 });

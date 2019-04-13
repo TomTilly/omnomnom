@@ -6,13 +6,14 @@ middlewareObj.checkRecipeOwnership = function(req, res, next){
 	// If user is logged in
 	if(req.isAuthenticated()){
 		Recipe.findById(req.params.id, function(err, foundRecipe){
-			if(err){
+			if(err || !foundRecipe){
 				console.log(err);
 				req.flash('error', 'Recipe not found');
 				res.redirect('back');
 			} else {
 				// Does user own the recipe?
 				if(foundRecipe.author.id.equals(req.user._id)){
+					req.recipe = foundRecipe;
 					next();
 				} else {
 					console.log('You don\'t have permission to do that');
@@ -32,13 +33,14 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
 	// If user is logged in
 	if(req.isAuthenticated()){
 		Comment.findById(req.params.commentID, function(err, foundComment){
-			if(err){
-				console.log(err);
+			if(err || !foundComment){
+				console.log('Comment not found');
 				req.flash('error', 'Comment not found');
 				res.redirect('back');
 			} else {
 				// Did the user author this comment?
 				if(foundComment.author.id.equals(req.user._id)) {
+					req.comment = foundComment;
 					next();
 				} else {
 					console.log('You don\'t have permission to do that');

@@ -45,8 +45,10 @@ router.get('/new', middleware.isLoggedIn, function(req, res){
 // Show
 router.get('/:id', function(req, res){
 	Recipe.findById(req.params.id).populate('comments').exec(function(err, mainRecipe){
-		if(err){
+		if(err || !mainRecipe){
 			console.log(err);
+			req.flash('error', `Recipe not found`);
+			res.redirect('back');
 		} else {
 			// Find other recipes to display on sidebar of page, making sure ID is not equal to the recipe just found
 			Recipe.find({ _id: { $ne: mainRecipe._id }}).limit(2).exec(function(err, otherRecipes){
@@ -62,9 +64,7 @@ router.get('/:id', function(req, res){
 
 // Edit
 router.get('/:id/edit', middleware.checkRecipeOwnership, function(req, res){
-	Recipe.findById(req.params.id, function(err, foundRecipe){
-		res.render('recipes/edit', {recipe: foundRecipe});
-	});
+	res.render('recipes/edit', {recipe: req.recipe});
 });
 
 // Update
