@@ -5,7 +5,7 @@ const passport = require('passport');
 
 // Home (root)
 router.get('/', function(req, res){
-	res.redirect('/recipes');
+	res.render('landing');
 });
 
 // ============
