@@ -11,7 +11,7 @@ const Comment = require('./models/comment');
 const User = require('./models/user');
 const seedDB = require('./seed');
 require('dotenv').config({ path: 'variables.env' });
-const port = 7777;
+const PORT = process.env.PORT;
 
 // Requiring routes
 const indexRoutes = require('./routes/index');
@@ -25,8 +25,8 @@ app.use(methodOverride('_method'));
 app.use(flash());
 // seedDB();
 
-// mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
-mongoose.connect('mongodb+srv://tillytoby:wn0z:S0bnFx#@cluster0-fglye.mongodb.net/test?retryWrites=true', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
+// mongoose.connect('mongodb+srv://tillytoby:wn0z:S0bnFx#@cluster0-fglye.mongodb.net/test?retryWrites=true', { useNewUrlParser: true });
 
 // Passport Config
 app.use(require('express-session')({
@@ -55,6 +55,6 @@ app.use('/recipes/:id/comments', commentRoutes);
 app.use('/', indexRoutes);
 
 
-app.listen(port, function(){
+app.listen(PORT, function(){
 	console.log("Server started: ", new Date());
 });
