@@ -25,8 +25,9 @@ app.use(methodOverride('_method'));
 app.use(flash());
 // seedDB();
 
-mongoose.connect('mongodb://localhost:27017/omnomnom', { useNewUrlParser: true});
-// mongoose.connect('mongodb+srv://tillytoby:wn0z:S0bnFx#@cluster0-fglye.mongodb.net/test?retryWrites=true', { useNewUrlParser: true });
+
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true});
+// mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-fglye.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true });
 
 // Passport Config
 app.use(require('express-session')({
