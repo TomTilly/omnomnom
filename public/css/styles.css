@@ -39,11 +39,15 @@ html, body {
    Main body of document
    ========================================================================== */
 
-/* Recipes page
+/* Recipes Index Page
    ========================================================================== */
 
-.index-card img {
-	height: 200px;
+.index-card {
+	width: 100%;
+}
+
+.tt-img-container img {
+	max-width: 100%;
 }
 
 .card-container {
@@ -53,6 +57,11 @@ html, body {
 @media (min-width: 768px) {
 	.card-container {
 		margin: 1rem 0;
+	}
+	
+	.index-card .tt-img-container {
+		height: 200px;
+		overflow: hidden;
 	}
 }
 

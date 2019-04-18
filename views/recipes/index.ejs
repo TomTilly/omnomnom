@@ -10,7 +10,9 @@
 			<% recipes.forEach(function(recipe){ %>
 				<article class="col-md-6 col-lg-4 d-flex align-items-stretch card-container"> <!-- d-flex align-items-stretch -->
 					<div class="card index-card">
-						<img src="<%= recipe.image %>" alt="<%= recipe.name %>">
+						<div class="tt-img-container">
+							<img src="<%= recipe.image %>" alt="<%= recipe.name %>">
+						</div>
 						<section class="card-body">
 							<h4 class="card-title"><%= recipe.name %></h4>
 							<p class="card-text"><%= recipe.directions.substring(0, 100) %>&#8230;</p>
