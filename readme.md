@@ -13,7 +13,13 @@ Basic recipe website
 - `res.redirect('back')` not working (?)
 - ~~App throws error when a nonexistant id is given for :id and :commentID URL parameters for recipe and comment routes. Database doesn't return a document and app doesn't work as intended.~~
 - Recipe show route: when recipes don't have a valid image url to load, somehow a 'Recipe Not Found' error is thrown and somehow the page still loads correctly. So the code is somehow going through both branches of the if statement. This also sometimes leads to a flash error message being shown on the next page click, but not always.
+- Fix added blank ingredient when editing recipes
+
+## Features to add
+
 - Input validation
+- Rating system for each recipe
+- Add completion time to recipe models
 
 ## Media Query Reference
 
