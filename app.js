@@ -23,7 +23,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(flash());
-seedDB();
+// seedDB();
 
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true});

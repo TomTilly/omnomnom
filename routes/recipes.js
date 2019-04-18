@@ -47,7 +47,7 @@ router.get('/:id', function(req, res){
 	Recipe.findById(req.params.id).populate('comments').exec(function(err, mainRecipe){
 		if(err || !mainRecipe){
 			console.log(err);
-			req.flash('error', `Recipe not found`);
+			console.log('Recipe Not Found');
 			res.redirect('back');
 		} else {
 			// Find other recipes to display on sidebar of page, making sure ID is not equal to the recipe just found

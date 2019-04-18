@@ -8,14 +8,18 @@ middlewareObj.checkRecipeOwnership = function(req, res, next){
 		Recipe.findById(req.params.id, function(err, foundRecipe){
 			if(err || !foundRecipe){
 				console.log(err);
+				console.log('1');
 				req.flash('error', 'Recipe not found');
 				res.redirect('back');
 			} else {
 				// Does user own the recipe?
 				if(foundRecipe.author.id.equals(req.user._id)){
+					console.log('2');
+					console.log(foundRecipe);
 					req.recipe = foundRecipe;
 					next();
 				} else {
+					console.log('3');
 					console.log('You don\'t have permission to do that');
 					req.flash('error', 'You don\'t have permission to do that');
 					res.redirect('back');

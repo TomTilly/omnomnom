@@ -73,18 +73,19 @@
 		</article>
 
 	</main>
+
 	<aside class="col-lg-3">
     <h2 class="text-center">More Recipes</h3>
 		<% otherRecipes.forEach(function(recipe){ %>
-				<div class="card text-center my-3 show-card">
-	  			<div class="card-header">
-						<a href="/recipes/<%= recipe._id %>" class="stretched-link h4"><%= recipe.name %></a>
-	  			</div>
-	  			<img src="<%= recipe.image %>" class="card-img" alt="<%= recipe.name %>">
+			<div class="card text-center my-3 show-card">
+	  		<div class="card-header">
+					<a href="/recipes/<%= recipe._id %>" class="stretched-link h4"><%= recipe.name %></a>
 	  		</div>
-	  	</a>
+	  		<img src="<%= recipe.image %>" class="card-img" alt="<%= recipe.name %>">
+	  	</div>
 		<% }); %>
 	</aside>
+	
 </div>
 
 <%- include('../partials/footer'); %>
