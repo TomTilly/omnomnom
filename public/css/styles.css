@@ -74,6 +74,11 @@ html, body {
 		margin: 0 auto;
 		width: 70%;
 	}
+
+	.tt-short-form {
+		margin: 0 auto;
+		width: 50%;
+	}
 }
 
 /* Recipe Show Page
